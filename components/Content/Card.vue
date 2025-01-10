@@ -6,7 +6,7 @@ const props = defineProps(['poster']);
 const cards = {};
 
 const { poster_path, vote_average, release_date, first_air_date, original_title, name, id } = props.poster;
-debugger;
+
 const image = 'https://image.tmdb.org/t/p/w220_and_h330_face';
 const url = ref(`${ image }${ poster_path }`);
 const vote = parseInt(vote_average * 10);

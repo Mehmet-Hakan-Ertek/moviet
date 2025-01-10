@@ -34,3 +34,32 @@ export async function search(keyword) {
 
     return result;
 }
+
+export async function getMovieByTypeAndAlgorithm(type, algorithm = 'popular') {
+    let result = {};
+
+    const formattedType = {
+        '': 'movie',
+        'movies': 'movie',
+        'tv-shows': 'tv',
+    }[type.toLowerCase()]
+
+    const algo = {
+        'popular': 'popular',
+        'Popular': 'popular',
+        'top rated': 'top_rated',
+        'Top Rated': 'top_rated',
+        'Airing Today': 'airing_today',
+        'On TV': 'on_the_air',
+        'Now playing': 'now_playing',
+        'Upcoming': 'upcoming'
+    }[decodeURI(algorithm)]
+
+    await fetch(
+        `https://api.themoviedb.org/3/${ formattedType }/${ algo }?api_key=348088421ad3fb3a9d6e56bb6a9a8f80&language=en-US&page=1&with_genres=27`)
+        .then(response => response.json())
+        .then(response => result = response)
+        .catch(err => console.error(err))
+
+    return result;
+}
