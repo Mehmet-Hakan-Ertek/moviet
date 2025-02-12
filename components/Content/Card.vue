@@ -71,6 +71,10 @@ function isInWishlist() {
 
   return favoritedMovies.includes(id);
 }*/
+
+function redirectToMovieDetailsPage() {
+  window.location.href = `#movies/movie-details/${ encodeURI(title) }-${ id }`
+}
 </script>
 
 <template>
@@ -82,7 +86,7 @@ function isInWishlist() {
         <span class="text-[6px] mt-[-5px]">{{ percentage }}</span>
         <canvas ref="canvas" class="percentage-canvas absolute rotate-[270deg]" width="38" height="38"></canvas>
       </div>
-      <div class="poster-title text-base font-bold">{{ title }}</div>
+      <div @click="redirectToMovieDetailsPage" class="poster-title text-base font-bold cursor-pointer">{{ title }}</div>
       <div class="poster-release-date">{{ date }}</div>
       <div @click="addToWishlist" :class="{ 'favorited': isCurrentPosterInWishlist }" class="poster-star text-[24px] absolute top-0 right-[5px] text-white cursor-pointer">&#9733;</div>
     </div>

@@ -44,7 +44,7 @@ const {headerIconURL} = config;
       <ul class="menu-item-wrapper flex gap-5" v-for="(item, index) in menuItems" :key="index">
         <li>
           <a
-              class="menu-item text-base font-bold cursor-pointer relative"
+              class="menu-item text-base font-bold cursor-pointer relative text-white"
               :href="item.url"
               @click.prevent="dropdownStatus === index ? dropdownStatus = null : dropdownStatus = index"
               @click="clickedMenuItem = $event.target.innerText.trim()"

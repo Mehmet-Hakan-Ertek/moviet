@@ -63,3 +63,14 @@ export async function getMovieByTypeAndAlgorithm(type, algorithm = 'popular') {
 
     return result;
 }
+
+export async function getMovieById(id) {
+    let result = {};
+
+    await fetch(`https://api.themoviedb.org/3/movie/${ id }?api_key=348088421ad3fb3a9d6e56bb6a9a8f80&language=en-US`)
+        .then(response => response.json())
+        .then(response => result = response)
+        .catch(err => console.error(err))
+
+    return result;
+}
