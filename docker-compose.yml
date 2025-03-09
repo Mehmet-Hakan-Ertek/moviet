@@ -1,0 +1,33 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=moviet
+      - POSTGRES_DB=moviet
+    ports:
+      - 5432:5432
+    networks:
+      - shared-network
+    volumes:
+      - ./postgres-db:/var/lib/postgresql
+
+  moviet:
+    container_name: moviet
+    image: moviet:1.0.0
+    restart: unless-stopped
+    build:
+      context: moviet
+      target: production
+      dockerfile: Dockerfile
+    ports:
+      - 3030:3031
+    networks:
+      - shared-network
+    volumes:
+      - ./postgres-db:/var/lib/postgresql
+
+networks:
+  shared-network:
