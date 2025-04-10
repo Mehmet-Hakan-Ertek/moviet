@@ -1,22 +1,25 @@
 name: Deploy Remotely
 on:
   push:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   Deploy-Remotely:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+
       - name: Use Node.js 20.x to Build
         uses: actions/setup-node@v2
         with:
           node-version: 20.x
 
       - run: npm ci
-      - name: NUXT_CONFIG=nuxt.config.ec2.ts npm run build
 
-      - name: Transfers Build Folder to EC2 Instance
+      - name: Build for EC2
+        run: NUXT_CONFIG=nuxt.config/ec2.ts npm run build
+
+      - name: Transfer Build Folder to EC2 Instance
         uses: easingthemes/ssh-deploy@v2.1.4
         env:
           SSH_PRIVATE_KEY: ${{ secrets.AWS_EC2_DEPLOY_PEM_KEY }}
@@ -25,7 +28,3 @@ jobs:
           REMOTE_PORT: ${{ secrets.AWS_EC2_DEPLOY_PORT }}
           SOURCE: ".output/"
           TARGET: "/home/ubuntu/kpi-new/.output"
-        with:
-          REMOTE_HOST: ${{ secrets.AWS_EC2_DEPLOY_IP_ADDRESS_HOST }}
-          REMOTE_USER: ${{ secrets.AWS_EC2_DEPLOY_USER }}
-          SSH_PRIVATE_KEY: ''
