@@ -25,3 +25,7 @@ jobs:
           REMOTE_PORT: ${{ secrets.AWS_EC2_DEPLOY_PORT }}
           SOURCE: ".output/"
           TARGET: "/home/ubuntu/kpi-new/.output"
+        with:
+          REMOTE_HOST: ${{ secrets.AWS_EC2_DEPLOY_IP_ADDRESS_HOST }}
+          REMOTE_USER: ${{ secrets.AWS_EC2_DEPLOY_USER }}
+          SSH_PRIVATE_KEY: ''
